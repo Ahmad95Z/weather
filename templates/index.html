@@ -24,30 +24,38 @@
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
           <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
         </form>
-
-        <div class="text-end">
-          <button type="button" class="btn btn-outline-light me-2">Login</button>
-          <button type="button" class="btn btn-warning">Sign-up</button>
-        </div>
       </div>
     </div>
   </header>
 <body>
-    <div class="container">
+    <div class="container mt-5">
    <div class="row">
-       <div class="col-4 offset-2">
-        <h1>Погода</h1>
-        <form action="">
-        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGr" name="city" id="city" placeholder="Укажите город">
+       <div class="col-5">
+        <h2>Погода в вашем городе</h2>
+        <form action="" method="post">
+          {% csrf_token %}
+          <label>Город</label>
+          {{ form.name }}
         <input type="submit" class='mt-2 btn btn-danger' aria-label="Sizing example input" aria-describedby="inputGr" name="send" value="Посмотреть">
         
     </form>
 
     </div>
-
-       <div class="col-4 offset-2">
-        <h1>Погода</h1>
+    <div class="col-5 offset-2">
+    <h1>Все города</h1><br>
+      {% for info in all_cities %}
+       <div class="alert alert-info">
+       <div class=" row ">
+        <div class="col-9">
+        <b>Город:</b> {{ info.city }}<br>
+        <b>Температура:</b> {{ info.temp}} <sup>о</sup>
        </div>
+       <div class="col-2 offset-1">
+         <img src="http://openweathermap.org/img/w/{{ info.icon }}.png" alt="Фото погоды">
+       </div>
+       </div>
+       </div>
+       {% endfor %}
    </div>
 </div>
     
